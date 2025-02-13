@@ -22,12 +22,11 @@ body {
 
 .personaje {
   position: absolute;
-  width: 150px;
+  width: 138px;
   height: 90px;
   background-image: url(img/probar.png);
   background-size: contain;
   background-repeat: no-repeat;
-  
   z-index: 10;
   margin: 0;
   margin: 0;
@@ -35,14 +34,13 @@ body {
 
 .moneda {
   position: absolute;
-  width: 50px;
+  width: 40px;
   height: 50px;
   background-repeat: no-repeat;
   background-image: url(img/sangre.png);
   background-size: contain;
   background-position: center;
   animation: respirar 2s ease-in-out infinite; 
-  border-color: aquamarine;
 }  
 @keyframes respirar {
   0% {
@@ -65,7 +63,6 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  
   z-index: 5;
 }
 #puntos { 

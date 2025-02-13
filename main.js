@@ -43,11 +43,13 @@ class Game {
         if (this.teclasPresionadas["ArrowRight"]) {
             if (this.personaje.x + this.personaje.width < anchoContainer) {
             this.personaje.x += this.personaje.velocidad;
+            this.personaje.element.style.backgroundImage = "url('img/probar.png')";
             }
         }   
         if (this.teclasPresionadas["ArrowLeft"]) {
             if (this.personaje.x > 0) {
             this.personaje.x -= this.personaje.velocidad;
+            this.personaje.element.style.backgroundImage = "url('img/probarizquierda.png')"; // Cambia la imagen
             }
         }
         if ((this.teclasPresionadas["ArrowUp"] || this.teclasPresionadas["Space"]) && !this.personaje.saltando) {
@@ -177,36 +179,18 @@ class Personaje {
     colisionaCon(objeto) {
         const rect1 = this.element.getBoundingClientRect();
         const rect2 = objeto.element.getBoundingClientRect();
-    
-        console.log(`Personaje: x=${rect1.left}, y=${rect1.top}, width=${rect1.width}, height=${rect1.height}`);
-        console.log(`Objeto: x=${rect2.left}, y=${rect2.top}, width=${rect2.width}, height=${rect2.height}`);
+
     
         // Dibujar los rectángulos en la pantalla para depuración
-        this.dibujarRectangulo(rect1, "red");
-        this.dibujarRectangulo(rect2, "blue");
-        const margenTolerancia = 10; // Reducir sensibilidad de colisión
-
-        return (
-            rect1.left + margenTolerancia < rect2.right - margenTolerancia &&
-            rect1.right - margenTolerancia > rect2.left + margenTolerancia &&
-            rect1.top + margenTolerancia < rect2.bottom - margenTolerancia &&
-            rect1.bottom - margenTolerancia > rect2.top + margenTolerancia
+    
+         const margen = 15; // Ajusta este valor según pruebas
+    return !(
+        rect1.right - margen < rect2.left + margen ||
+        rect1.left + margen > rect2.right - margen ||
+        rect1.bottom - margen < rect2.top + margen ||
+        rect1.top + margen > rect2.bottom - margen
         );
-    }
-    
-    dibujarRectangulo(rect, color) {
-        let div = document.createElement("div");
-        div.style.position = "absolute";
-        div.style.left = `${rect.left}px`;
-        div.style.top = `${rect.top}px`;
-        div.style.width = `${rect.width}px`;
-        div.style.height = `${rect.height}px`;
-        div.style.border = `2px solid ${color}`;
-        div.style.pointerEvents = "none"; // Evitar que interfiera con el juego
-        document.body.appendChild(div);
-    
-        // Eliminar el rectángulo después de un tiempo
-        setTimeout(() => div.remove(), 500);
+   
     }
 }
 class Objeto {
