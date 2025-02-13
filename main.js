@@ -172,15 +172,14 @@ class Personaje {
         );
     }
 }
-
-class Moneda {
-    constructor() {
-        this.x = Math.random() * 700 + 50;
-        this.y = Math.random() * 250 + 50;
-        this.width = 30;
-        this.height = 30;
+class Objeto {
+    constructor(className, x = Math.random() * 700 + 50, y = Math.random() * 250 + 50, width = 30, height = 30) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
         this.element = document.createElement("div");
-        this.element.classList.add("moneda");
+        this.element.classList.add(className);
         this.actualizarPosicion();
     }
 
@@ -189,38 +188,29 @@ class Moneda {
         this.element.style.top = `${this.y}px`;
     }
 }
-class Obstaculo {
+class Moneda extends Objeto {
     constructor() {
-        this.x = Math.random() * 700 + 50; // Posición aleatoria en el eje X
-        this.y = -30; // Comienza fuera de la pantalla en el eje Y (por encima del área visible)
-        this.width = 30; // Tamaño del obstáculo
-        this.height = 30;
-        this.velocidad = 5; // Velocidad a la que cae
-        this.element = document.createElement("div");
-        this.element.classList.add("obstaculo"); // Clase CSS para estilos
-        this.actualizarPosicion();
+        super("moneda");
     }
-
-    // Mueve el obstáculo hacia abajo
+}
+class Obstaculo extends Objeto {
+    constructor() {
+        super("obstaculo", Math.random() * 700 + 50, -30); // Inicia fuera de la pantalla en Y
+        this.velocidad = 5; // Velocidad de caída
+    }
     bajar() {
         this.y += this.velocidad; // Baja el obstáculo
         this.actualizarPosicion();
-        this.element.style.left = `${this.x}px`;
-         this.element.style.top = `${this.y}px`;
-        if (this.y > 500) {
-            this.element.remove(); // Elimina del DOM
+        
+        if (this.y > 500) { // Si sale de la pantalla
+            this.element.remove();
             const index = juego.obstaculos.indexOf(this);
             if (index > -1) {
                 juego.obstaculos.splice(index, 1);
             }
         }   
     }
-
-    // Actualiza la posición del obstáculo en el DOM
-    actualizarPosicion() {
-        this.element.style.left = `${this.x}px`;
-        this.element.style.top = `${this.y}px`;
-    }
 }
+
 
 const juego = new Game();
