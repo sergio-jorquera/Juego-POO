@@ -12,12 +12,15 @@ class Game {
         this.agregarEventos();
         this.checkColisiones();
         this.puntosElement = document.getElementById("puntos");
+        this.sonidoColision = new Audio("/audio/me-cago-en-toas-tus-muelas.mp3");
+        this.sonidoWin = new Audio ("audio/siete_caballos_vienen_de_bonanza_chiquito_de_la_calzada.mp3");
+        this.sonidoMoneda = new Audio ("audio/chiquito_de_la_calzada_grito.mp3");
     }
 
     crearEscenario() {
         this.personaje = new Personaje();
         this.container.appendChild(this.personaje.element);
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             const moneda = new Moneda();
             this.monedas.push(moneda);
             this.container.appendChild(moneda.element);
@@ -57,12 +60,14 @@ class Game {
                     this.monedas.splice(index, 1);
                     this.actualizarPuntuacion(10);
                     this.win();
+                    this.sonidoMoneda.play();
                 }
             });
             this.obstaculos.forEach((obstaculo, index) => {
                 console.log(`Obstáculo ${index}: x=${obstaculo.x}, y=${obstaculo.y}`);
                 if (this.personaje.colisionaCon(obstaculo)) {
                     console.log("💥 Colisión detectada con obstáculo");
+                    this.sonidoColision.play();
                     this.gameOver(); // Si colisiona con un obstáculo, termina el juego
                 }
             });
@@ -107,9 +112,9 @@ class Game {
 class Personaje {
     constructor() {
         this.x = 50;
-        this.y = 300;
-        this.width = 50;
-        this.height = 50;
+        this.y = 600;
+        this.width = 170;
+        this.height = 170;
         this.velocidad = 10;
         this.saltando = false;
         this.element = document.createElement("div");
@@ -120,7 +125,7 @@ class Personaje {
     saltar() {
         if (this.saltando) return;
         this.saltando = true;
-        let alturaMaxima = this.y - 250;
+        let alturaMaxima = this.y - 550;
 
         const saltar = setInterval(() => {
             if (this.y > alturaMaxima) {
@@ -141,7 +146,7 @@ class Personaje {
 
     caer() {
         const gravedad = setInterval(() => {
-            if (this.y < 300) {
+            if (this.y < 600) {
                 this.y += 10; 
                  if (juego.teclasPresionadas["ArrowRight"]) {
                     this.x += this.velocidad;
@@ -191,18 +196,23 @@ class Objeto {
 class Moneda extends Objeto {
     constructor() {
         super("moneda");
+        this.width = 80;
+        this.height =100;
+        
     }
 }
 class Obstaculo extends Objeto {
     constructor() {
         super("obstaculo", Math.random() * 700 + 50, -30); // Inicia fuera de la pantalla en Y
         this.velocidad = 5; // Velocidad de caída
+        this.width = 90;
+        this.height =90;
     }
     bajar() {
         this.y += this.velocidad; // Baja el obstáculo
         this.actualizarPosicion();
         
-        if (this.y > 500) { // Si sale de la pantalla
+        if (this.y > 600) { // Si sale de la pantalla
             this.element.remove();
             const index = juego.obstaculos.indexOf(this);
             if (index > -1) {
