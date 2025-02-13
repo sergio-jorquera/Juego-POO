@@ -20,7 +20,7 @@ class Game {
     crearEscenario() {
         this.personaje = new Personaje();
         this.container.appendChild(this.personaje.element);
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             const moneda = new Moneda();
             this.monedas.push(moneda);
             this.container.appendChild(moneda.element);
@@ -39,15 +39,21 @@ class Game {
     }
 
     actualizarMovimiento() {
+        const anchoContainer = 1015;
         if (this.teclasPresionadas["ArrowRight"]) {
+            if (this.personaje.x + this.personaje.width < anchoContainer) {
             this.personaje.x += this.personaje.velocidad;
-        }
+            }
+        }   
         if (this.teclasPresionadas["ArrowLeft"]) {
+            if (this.personaje.x > 0) {
             this.personaje.x -= this.personaje.velocidad;
+            }
         }
         if ((this.teclasPresionadas["ArrowUp"] || this.teclasPresionadas["Space"]) && !this.personaje.saltando) {
             this.personaje.saltar();
         }
+
 
         this.personaje.actualizarPosicion();
     }
@@ -97,6 +103,7 @@ class Game {
     }
     win() {
         if (this.monedas.length === 0) {
+            this.sonidoWin.play();
             alert("¡Has ganado!");
             location.reload(); // Recarga la página
         }
@@ -168,13 +175,38 @@ class Personaje {
     }
 
     colisionaCon(objeto) {
-        console.log(`Colisionando: ${this.x}, ${this.y} con ${objeto.x}, ${objeto.y}`);
+        const rect1 = this.element.getBoundingClientRect();
+        const rect2 = objeto.element.getBoundingClientRect();
+    
+        console.log(`Personaje: x=${rect1.left}, y=${rect1.top}, width=${rect1.width}, height=${rect1.height}`);
+        console.log(`Objeto: x=${rect2.left}, y=${rect2.top}, width=${rect2.width}, height=${rect2.height}`);
+    
+        // Dibujar los rectángulos en la pantalla para depuración
+        this.dibujarRectangulo(rect1, "red");
+        this.dibujarRectangulo(rect2, "blue");
+        const margenTolerancia = 10; // Reducir sensibilidad de colisión
+
         return (
-            this.x + this.width > objeto.x &&
-            this.x < objeto.x + objeto.width &&
-            this.y + this.height > objeto.y &&
-            this.y < objeto.y + objeto.height
+            rect1.left + margenTolerancia < rect2.right - margenTolerancia &&
+            rect1.right - margenTolerancia > rect2.left + margenTolerancia &&
+            rect1.top + margenTolerancia < rect2.bottom - margenTolerancia &&
+            rect1.bottom - margenTolerancia > rect2.top + margenTolerancia
         );
+    }
+    
+    dibujarRectangulo(rect, color) {
+        let div = document.createElement("div");
+        div.style.position = "absolute";
+        div.style.left = `${rect.left}px`;
+        div.style.top = `${rect.top}px`;
+        div.style.width = `${rect.width}px`;
+        div.style.height = `${rect.height}px`;
+        div.style.border = `2px solid ${color}`;
+        div.style.pointerEvents = "none"; // Evitar que interfiera con el juego
+        document.body.appendChild(div);
+    
+        // Eliminar el rectángulo después de un tiempo
+        setTimeout(() => div.remove(), 500);
     }
 }
 class Objeto {
@@ -197,7 +229,7 @@ class Moneda extends Objeto {
     constructor() {
         super("moneda");
         this.width = 80;
-        this.height =100;
+        this.height =80;
         
     }
 }
