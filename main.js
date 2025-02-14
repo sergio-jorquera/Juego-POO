@@ -82,7 +82,7 @@ class Game {
                 if (this.personaje.colisionaCon(obstaculo)) {
                     console.log("💥 Colisión detectada con obstáculo");
                     this.sonidoColision.play();
-                    this.sonidoJuego.pause(); 
+                     this.sonidoJuego.pause(); 
                     this.gameOver(); // Si colisiona con un obstáculo, termina el juego
                 }
             });
@@ -107,6 +107,7 @@ class Game {
     }
     gameOver() {
         alert("Game Over");
+        
        
         setTimeout(() => {
             location.reload();
@@ -114,7 +115,7 @@ class Game {
     }
     win() {
         if (this.monedas.length === 0) {
-            this.sonidoJuego.pause(); 
+            this.sonidoJuego.pause();
             this.sonidoWin.play();
             alert("¡Has ganado!");
             location.reload(); // Recarga la página
