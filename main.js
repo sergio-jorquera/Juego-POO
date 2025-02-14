@@ -15,7 +15,13 @@ class Game {
         this.sonidoColision = new Audio("/audio/me-cago-en-toas-tus-muelas.mp3");
         this.sonidoWin = new Audio ("audio/siete_caballos_vienen_de_bonanza_chiquito_de_la_calzada.mp3");
         this.sonidoMoneda = new Audio ("audio/chiquito_de_la_calzada_grito.mp3");
+        this.sonidoJuego = new Audio ("audio/30-seconds-2020-04-24_-_Arcade_Kid_-_FesliyanStudios.com_-_David_Renda.mp3");
+        this.sonidoJuego.play(); // Reproduce el sonido cuando el juego comienza
+        this.sonidoJuego.loop = true;
+        // Si deseas controlar otros aspectos del sonido, puedes configurarlo:
+        this.sonidoJuego.volume = 0.5;  // Ajustar el volumen (opcional)
     }
+
 
     crearEscenario() {
         this.personaje = new Personaje();
@@ -76,6 +82,7 @@ class Game {
                 if (this.personaje.colisionaCon(obstaculo)) {
                     console.log("💥 Colisión detectada con obstáculo");
                     this.sonidoColision.play();
+                    this.sonidoJuego.pause(); 
                     this.gameOver(); // Si colisiona con un obstáculo, termina el juego
                 }
             });
@@ -99,17 +106,15 @@ class Game {
         this.puntosElement.textContent = ` Points: ${this.puntuacion}`;
     }
     gameOver() {
-        // Mostrar el mensaje en pantalla
-        const mensajeDiv = document.getElementById("gameOver");
-        mensajeDiv.style.display = "block"; // Hace visible el mensaje
-    
-        // Recargar el juego después de 2 segundos (sin bloquear la ejecución)
+        alert("Game Over");
+       
         setTimeout(() => {
-            location.reload(); // Recarga la página
-        }, 2000);  // Espera 2 segundos
+            location.reload();
+        }, 100); // Espera 100ms antes de recargar
     }
     win() {
         if (this.monedas.length === 0) {
+            this.sonidoJuego.pause(); 
             this.sonidoWin.play();
             alert("¡Has ganado!");
             location.reload(); // Recarga la página
@@ -239,3 +244,6 @@ class Obstaculo extends Objeto {
 
 
 const juego = new Game();
+
+this.sonidoJuego.play();
+
