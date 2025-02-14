@@ -14,8 +14,8 @@ body {
   width: 1000px;
   height: 700px;
   margin: 20px auto;
-  border: 10px solid #6d6d6d;
-  background: #fff;
+  border: 10px solid #ce7a36;
+  background-image: url("img/fondovideojuego2.jpg");
   overflow: hidden;
   border-radius: 30px;
 }
@@ -40,7 +40,7 @@ body {
   background-image: url(img/sangre.png);
   background-size: contain;
   background-position: center;
-  animation: respirar 2s ease-in-out infinite; 
+  animation: respirar 2s ease-in-out infinite, resplandor 1.5s infinite alternate; 
 }  
 @keyframes respirar {
   0% {
@@ -51,6 +51,14 @@ body {
   }
   100% {
     transform: scale(1); /* Vuelve al tamaño original */
+  }
+}
+@keyframes resplandor {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6)); /* Suave */
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 1)); /* Intenso */
   }
 }
 
