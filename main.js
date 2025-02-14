@@ -94,14 +94,19 @@ class Game {
     }
 
     actualizarPuntuacion(puntos) {
+    
         this.puntuacion += puntos;
-        this.puntosElement.textContent = `${this.puntuacion}`;
+        this.puntosElement.textContent = ` Points: ${this.puntuacion}`;
     }
     gameOver() {
-        alert("Game Over");
+        // Mostrar el mensaje en pantalla
+        const mensajeDiv = document.getElementById("gameOver");
+        mensajeDiv.style.display = "block"; // Hace visible el mensaje
+    
+        // Recargar el juego después de 2 segundos (sin bloquear la ejecución)
         setTimeout(() => {
-            location.reload();
-        }, 100); // Espera 100ms antes de recargar
+            location.reload(); // Recarga la página
+        }, 2000);  // Espera 2 segundos
     }
     win() {
         if (this.monedas.length === 0) {
@@ -179,7 +184,7 @@ class Personaje {
         const rect1 = this.element.getBoundingClientRect();
         const rect2 = objeto.element.getBoundingClientRect();
     
-         const margen = 15; // Ajusta este valor según pruebas
+         const margen = 15; // Ajusta este valor según pruebas, el método getBoundingClientRect hace que la colision sea más exacta
     return !(
         rect1.right - margen < rect2.left + margen ||
         rect1.left + margen > rect2.right - margen ||
