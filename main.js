@@ -117,7 +117,6 @@ class Game {
     }
 }
 
-
 class Personaje {
     constructor() {
         this.x = 50;
@@ -139,10 +138,10 @@ class Personaje {
         const saltar = setInterval(() => {
             if (this.y > alturaMaxima) {
                 this.y -= 10;
-                if (juego.teclasPresionadas["ArrowRight"]) {
+                if (juego.teclasPresionadas["ArrowRight"] && this.x < 1015 - this.width) {
                     this.x += this.velocidad;
                 }
-                if (juego.teclasPresionadas["ArrowLeft"]) {
+                if (juego.teclasPresionadas["ArrowLeft"] && this.x > 0) {
                     this.x -= this.velocidad;
                 }
             } else {
@@ -157,12 +156,12 @@ class Personaje {
         const gravedad = setInterval(() => {
             if (this.y < 600) {
                 this.y += 10; 
-                 if (juego.teclasPresionadas["ArrowRight"]) {
+                if (juego.teclasPresionadas["ArrowRight"] && this.x < 1015 - this.width) {
                     this.x += this.velocidad;
                 }
-                if (juego.teclasPresionadas["ArrowLeft"]) {
+                if (juego.teclasPresionadas["ArrowLeft"] && this.x > 0) {
                     this.x -= this.velocidad;
-                } 
+                }
             } else {
                 clearInterval(gravedad);
                 this.saltando = false;
@@ -179,9 +178,6 @@ class Personaje {
     colisionaCon(objeto) {
         const rect1 = this.element.getBoundingClientRect();
         const rect2 = objeto.element.getBoundingClientRect();
-
-    
-        // Dibujar los rectángulos en la pantalla para depuración
     
          const margen = 15; // Ajusta este valor según pruebas
     return !(
@@ -190,7 +186,6 @@ class Personaje {
         rect1.bottom - margen < rect2.top + margen ||
         rect1.top + margen > rect2.bottom - margen
         );
-   
     }
 }
 class Objeto {
@@ -213,8 +208,7 @@ class Moneda extends Objeto {
     constructor() {
         super("moneda");
         this.width = 80;
-        this.height =80;
-        
+        this.height =80;    
     }
 }
 class Obstaculo extends Objeto {
