@@ -107,6 +107,6 @@ h1 {
   background-color: #218838;
 }
 #gameOverMessage{
-  display: flex;
-  align-items: center;
+  display: none;
+  
 }

@@ -3,7 +3,7 @@ class Game {
         this.container = document.getElementById("game-container");
         this.playButton = document.getElementById("buttonPlay"); // El botón de play
         this.playButton.addEventListener("click", () => this.iniciarJuego()); // Cuando se da clic, iniciar el juego
-
+        this.gameOverMessage =document.getElementById("gameOverMessage");
         this.personaje = null;
         this.monedas = [];
         this.puntuacion = 0;
@@ -12,12 +12,13 @@ class Game {
         this.sonidoWin = new Audio ("audio/siete_caballos_vienen_de_bonanza_chiquito_de_la_calzada.mp3");
         this.sonidoMoneda = new Audio ("audio/chiquito_de_la_calzada_grito.mp3");
         this.sonidoJuego = new Audio ("audio/30-seconds-2020-04-24_-_Arcade_Kid_-_FesliyanStudios.com_-_David_Renda.mp3");
+        this.colisionIntervalId = null;
     }
 
     iniciarJuego() {
         // Al hacer clic en el botón Play, se inicia el juego
         this.playButton.style.display = "none"; // Ocultamos el botón de Play
-       
+        this.gameOverMessage.style.display = "none";
         // Reproducir sonido de fondo
         this.sonidoJuego.play();
         this.sonidoJuego.loop = true;
@@ -72,7 +73,7 @@ class Game {
     }
 
     checkColisiones() {
-        setInterval(() => {
+        this.colisionIntervalId = setInterval(() => { // Almacenar el ID del intervalo
             this.monedas.forEach((moneda, index) => {
                 if (this.personaje.colisionaCon(moneda)) {
                     this.container.removeChild(moneda.element);
@@ -87,8 +88,8 @@ class Game {
                 if (this.personaje.colisionaCon(obstaculo)) {
                     console.log("💥 Colisión detectada con obstáculo");
                     this.sonidoColision.play();
-                    this.sonidoJuego.pause(); 
-                    this.gameOver(); // Si colisiona con un obstáculo, termina el juego
+                    this.sonidoJuego.pause();
+                    this.gameOver();
                 }
             });
         }, 100);
@@ -112,10 +113,16 @@ class Game {
     }
 
     gameOver() {
-        alert("Game Over");
+        
+        clearInterval(this.colisionIntervalId);
+        this.gameOverMessage.style.display = "block"; // Detener el intervalo de colisiones
+        setTimeout(() => {
+            alert("Game Over");
+        }, 100);
+        this.playButton.style.display = "block";
         setTimeout(() => {
             location.reload();
-        }, 100);
+        }, 300);
     }
 
     win() {
