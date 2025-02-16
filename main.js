@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.container = document.getElementById("game-container");
-        this.playButton = document.getElementById("buttonPlay"); // El botón de play
+        this.playButton = document.getElementById("buttonPlay"); 
         this.playButton.addEventListener("click", () => this.iniciarJuego()); // Cuando se da clic, iniciar el juego
         this.gameOverMessage =document.getElementById("gameOverMessage");
         this.personaje = null;
@@ -19,7 +19,6 @@ class Game {
         // Al hacer clic en el botón Play, se inicia el juego
         this.playButton.style.display = "none"; // Ocultamos el botón de Play
         this.gameOverMessage.style.display = "none";
-        // Reproducir sonido de fondo
         this.sonidoJuego.play();
         this.sonidoJuego.loop = true;
         this.sonidoJuego.volume = 0.5;
@@ -41,7 +40,7 @@ class Game {
     }
 
     agregarEventos() {
-        window.addEventListener("keydown", (e) => {
+        window.addEventListener("keydown", (e) => { //almacenar varias teclas en el objeto  (this.teclasPresionadas = {};)
             this.teclasPresionadas[e.code] = true;
             this.actualizarMovimiento();
         });
@@ -96,8 +95,7 @@ class Game {
     }
 
     generarObstaculos() {
-        // Generar un obstáculo nuevo cada 2 segundos
-        setInterval(() => {
+        setInterval(() => { // Generar un obstáculo nuevo cada 2 segundos
             const obstaculo = new Obstaculo();
             this.obstaculos.push(obstaculo);
             this.container.appendChild(obstaculo.element);
@@ -113,9 +111,8 @@ class Game {
     }
 
     gameOver() {
-        
-        clearInterval(this.colisionIntervalId);
-        this.gameOverMessage.style.display = "block"; // Detener el intervalo de colisiones
+        clearInterval(this.colisionIntervalId);// Detener el intervalo de colisiones para que se paren una vez colisionen
+        this.gameOverMessage.style.display = "block"; 
         setTimeout(() => {
             alert("Game Over");
         }, 100);
@@ -127,15 +124,15 @@ class Game {
 
     win() {
         if (this.monedas.length === 0) {
-            this.sonidoJuego.pause(); 
-            this.sonidoWin.play();
-            alert("¡Has ganado!");
-            location.reload(); // Recarga la página
+                this.sonidoJuego.pause(); 
+                this.sonidoWin.play();
+                alert("¡Has ganado!");
+                location.reload(); // Recarga la página
         }
     }
 
     moverObstaculos() {
-        this.obstaculos.forEach((obstaculo) => {
+            this.obstaculos.forEach((obstaculo) => {
             obstaculo.bajar();
         });
     }
@@ -200,7 +197,7 @@ class Personaje {
     }
 
     colisionaCon(objeto) {
-        const rect1 = this.element.getBoundingClientRect();
+        const rect1 = this.element.getBoundingClientRect(); //Los valores que devuelve getBoundingClientRect() son muy precisos, el navegador se asegura de tener en cuenta todos los factores involucrados (márgenes, bordes, transformaciones, etc.).
         const rect2 = objeto.element.getBoundingClientRect();
 
         const margen = 15; // Ajusta este valor según pruebas
@@ -213,7 +210,7 @@ class Personaje {
     }
 }
 
-class Objeto {
+class Objeto { //Se crea la clase objeto de la que van a heredar la clase Moneda y la clase Obstaculo
     constructor(className, x = Math.random() * 700 + 50, y = Math.random() * 250 + 50, width = 30, height = 30) {
         this.x = x;
         this.y = y;
