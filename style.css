@@ -13,10 +13,8 @@ body {
 }
 #game-container {
   position: relative;
-  width: 90vw; /* 90% del ancho de la ventana */
-  max-width: 1000px; /* Máximo 1000px */
-  height: 80vh; /* 80% de la altura de la ventana */
-  max-height: 700px;
+  width: 900px;
+  height: 600px;
   margin: 20px auto;
   border: 10px solid #4be60d;
   background-image: url("img/fondovideojuego2.jpg");

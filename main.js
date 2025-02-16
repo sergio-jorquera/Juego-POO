@@ -52,7 +52,7 @@ class Game {
     }
 
     actualizarMovimiento() {
-        const anchoContainer = 1015;
+        const anchoContainer = 930;
         if (this.teclasPresionadas["ArrowRight"]) {
             if (this.personaje.x + this.personaje.width < anchoContainer) {
             this.personaje.x += this.personaje.velocidad;
@@ -148,7 +148,7 @@ class Game {
 class Personaje {
     constructor() {
         this.x = 50;
-        this.y = 600;
+        this.y = 500;
         this.width = 170;
         this.height = 170;
         this.velocidad = 10;
@@ -161,12 +161,12 @@ class Personaje {
     saltar() {
         if (this.saltando) return;
         this.saltando = true;
-        let alturaMaxima = this.y - 550;
+        let alturaMaxima = this.y - 450;
 
         const saltar = setInterval(() => {
             if (this.y > alturaMaxima) {
                 this.y -= 10;
-                if (juego.teclasPresionadas["ArrowRight"] && this.x < 1015 - this.width) {
+                if (juego.teclasPresionadas["ArrowRight"] && this.x < 930 - this.width) {
                     this.x += this.velocidad;
                 }
                 if (juego.teclasPresionadas["ArrowLeft"] && this.x > 0) {
@@ -182,9 +182,9 @@ class Personaje {
 
     caer() {
         const gravedad = setInterval(() => {
-            if (this.y < 600) {
+            if (this.y < 500) {
                 this.y += 10;
-                if (juego.teclasPresionadas["ArrowRight"] && this.x < 1015 - this.width) {
+                if (juego.teclasPresionadas["ArrowRight"] && this.x < 930 - this.width) {
                     this.x += this.velocidad;
                 }
                 if (juego.teclasPresionadas["ArrowLeft"] && this.x > 0) {
