@@ -4,6 +4,7 @@ class Game {
         this.playButton = document.getElementById("buttonPlay"); 
         this.playButton.addEventListener("click", () => this.iniciarJuego()); // Cuando se da clic, iniciar el juego
         this.gameOverMessage =document.getElementById("gameOverMessage");
+        this.WinMessage = document.getElementById("WinMessage");
         this.personaje = null;
         this.monedas = [];
         this.puntuacion = 0;
@@ -126,10 +127,16 @@ class Game {
         if (this.monedas.length === 0) {
                 this.sonidoJuego.pause(); 
                 this.sonidoWin.play();
-                alert("¡Has ganado!");
-                location.reload(); // Recarga la página
+                this.WinMessage.style.display = "block";
+                setTimeout(() => {
+                    alert("¡Has ganado!");
+                }, 100);
+                this.playButton.style.display = "block";
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
+            }
         }
-    }
 
     moverObstaculos() {
             this.obstaculos.forEach((obstaculo) => {

@@ -108,5 +108,9 @@ h1 {
 }
 #gameOverMessage{
   display: none;
+  }
+
+#WinMessage{
+  display: none;
   
 }
