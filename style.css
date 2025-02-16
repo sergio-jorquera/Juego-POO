@@ -20,6 +20,9 @@ body {
   background-image: url("img/fondovideojuego2.jpg");
   overflow: hidden;
   border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .personaje {
@@ -89,25 +92,8 @@ h1 {
   letter-spacing: 5px;
   text-transform: uppercase;
 }
-.game-over-message {
-  display: none;  /* Ocultar el mensaje al principio */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centrar el mensaje */
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  z-index: 1000;
-}
 
-.game-over-message h1 {
-  font-size: 2.5em;
-}
-
-.game-over-message button {
+#buttonPlay{
   background-color: #28a745;
   color: white;
   border: none;
@@ -115,8 +101,16 @@ h1 {
   font-size: 1em;
   cursor: pointer;
   border-radius: 5px;
+  
 }
-
-.game-over-message button:hover {
+#buttonPlay button:hover {
   background-color: #218838;
+}
+#gameOverMessage{
+  display: none;
+  }
+
+#WinMessage{
+  display: none;
+  
 }
