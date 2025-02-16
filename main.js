@@ -9,7 +9,7 @@ class Game {
         this.monedas = [];
         this.puntuacion = 0;
         this.teclasPresionadas = {};
-        this.sonidoColision = new Audio("/audio/me-cago-en-toas-tus-muelas.mp3");
+        this.sonidoColision = new Audio("audio/me-cago-en-toas-tus-muelas.mp3");
         this.sonidoWin = new Audio ("audio/siete_caballos_vienen_de_bonanza_chiquito_de_la_calzada.mp3");
         this.sonidoMoneda = new Audio ("audio/chiquito_de_la_calzada_grito.mp3");
         this.sonidoJuego = new Audio ("audio/30-seconds-2020-04-24_-_Arcade_Kid_-_FesliyanStudios.com_-_David_Renda.mp3");
@@ -112,7 +112,7 @@ class Game {
     }
 
     gameOver() {
-        clearInterval(this.colisionIntervalId);// Detener el intervalo de colisiones para que se paren una vez colisionen
+        clearInterval(this.colisionIntervalId);// Detener el intervalo de colisiones para que se paren una vez colisionen.
         this.gameOverMessage.style.display = "block"; 
         setTimeout(() => {
             alert("Game Over");
