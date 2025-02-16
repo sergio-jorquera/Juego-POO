@@ -13,8 +13,8 @@ body {
 }
 #game-container {
   position: relative;
-  width: 1000px;
-  height: 700px;
+  width: 900px;
+  height: 600px;
   margin: 20px auto;
   border: 10px solid #4be60d;
   background-image: url("img/fondovideojuego2.jpg");
