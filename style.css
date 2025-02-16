@@ -13,8 +13,10 @@ body {
 }
 #game-container {
   position: relative;
-  width: 1000px;
-  height: 700px;
+  width: 90vw; /* 90% del ancho de la ventana */
+  max-width: 1000px; /* Máximo 1000px */
+  height: 80vh; /* 80% de la altura de la ventana */
+  max-height: 700px;
   margin: 20px auto;
   border: 10px solid #4be60d;
   background-image: url("img/fondovideojuego2.jpg");
@@ -86,7 +88,7 @@ body {
 }
 h1 {
   font-size: 60px;
-  font-family: 'Orbitron', sans-serif; /* Fuente futurista */
+  font-family: 'Orbitron', sans-serif; 
   color: #00ffff;
   text-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff, 0 0 40px #0044ff;
   letter-spacing: 5px;
