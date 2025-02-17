@@ -3,7 +3,7 @@
 ## 🎮 Descripción
 CUIDADÍN es un emocionante juego arcade de vampiros donde debes recolectar gotas de sangre mientras esquivas peligrosos ajos. Ambientado en un tenebroso castillo, el jugador controla un pequeño vampiro en su búsqueda por sobrevivir.
 
-![Captura del Juego][
+
 ![Captura del juego](https://raw.githubusercontent.com/sergio-jorquera/Juego-POO/main/img/captura%201.png)
 ## ⚡ Características Principales
 - Controles intuitivos con las flechas del teclado
